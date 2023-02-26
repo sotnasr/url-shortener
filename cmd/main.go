@@ -14,7 +14,10 @@ import (
 
 func main() {
 	// Setup cache
-	cache := cache.NewInMemoryCache()
+	cache, err := cache.NewRedisCache(os.Getenv("REDIS_HOSTNAME"), os.Getenv("REDIS_PASSWORD"), os.Getenv("REDIS_PORT"))
+	if err != nil {
+		log.Fatal("error was found while connect on redis: ", err)
+	}
 
 	// Setup route engine & middleware
 	e := echo.New()
@@ -22,7 +25,7 @@ func main() {
 	http.NewShortenerHandler(e, cache)
 
 	go func() {
-		if err := e.Start(":8000"); err != nil {
+		if err := e.Start(":9000"); err != nil {
 			log.Fatal("shutting down the server")
 		}
 	}()
