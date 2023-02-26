@@ -22,3 +22,5 @@ go.work
 
 # .Vscode files
 .vscode
+
+*/__debug*
