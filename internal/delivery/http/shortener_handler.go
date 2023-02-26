@@ -9,6 +9,8 @@ import (
 	"github.com/sotnasr/url-shortener/internal/utils"
 )
 
+const CODE_SIZE = 6
+
 type ShortenerHandler struct {
 	cache cache.Cache
 }
@@ -57,7 +59,7 @@ func (s ShortenerHandler) SetUrl(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	short := utils.RandStringRunes(10)
+	short := utils.RandStringRunes(CODE_SIZE)
 
 	normalized, err := normalizeurl.Normalize(url)
 	if err != nil {
