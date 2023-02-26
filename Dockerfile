@@ -9,6 +9,7 @@ RUN go mod download && go mod verify
 COPY . .
 RUN go build -v -o /usr/local/bin/url-shortener /usr/src/url-shortener/cmd
 
+EXPOSE 9000
 RUN sleep 15
 
 CMD ["url-shortener"]
