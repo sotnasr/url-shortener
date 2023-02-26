@@ -1,0 +1,19 @@
+version: '3.2'
+services:
+
+  redis:
+    image: 'bitnami/redis:latest'
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  url-shortener:
+    build: .
+    ports:
+      - 9000:9000
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOSTNAME=127.0.0.1
+      - REDIS_PORT=6379
